@@ -8,6 +8,7 @@ import Profile from "../../Pages/Profile/Profile";
 import ForgotPassword from "../../Pages/ForgotPassword/ForgotPassword";
 import PrivateRoute from "./PrivateRoutes";
 import Services from "../../Pages/Services/Services";
+import AddService from "../../Pages/AddService/AddService";
 
 export const router = createBrowserRouter([
   {
@@ -23,23 +24,33 @@ export const router = createBrowserRouter([
         element: <Login></Login>,
       },
       {
-          path: "register",
-          element:<Signup></Signup>
-        },
-        {
-            path: "profile",
-            element:(<PrivateRoute>
-              <Profile />
-            </PrivateRoute>)
-        },
-        {
-            path: "forgot-password",
-            element:<ForgotPassword></ForgotPassword>
+        path: "register",
+        element: <Signup></Signup>,
       },
       {
-        path: 'services',
-        element:<Services></Services>
-        }
+        path: "profile",
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "forgot-password",
+        element: <ForgotPassword></ForgotPassword>,
+      },
+      {
+        path: "services",
+        element: <Services></Services>,
+      },
+      {
+        path: "add-service",
+        element: (
+          <PrivateRoute>
+            <AddService></AddService>
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {
