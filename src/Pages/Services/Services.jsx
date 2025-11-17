@@ -10,11 +10,11 @@ function Services() {
   }, []);
 
   return (
-    <div className="px-4 md:px-10 py-10 max-w-7xl mx-auto">
+    <div className=" py-10 max-w-7xl mx-auto">
       {/* Headline */}
       <h1 className="text-3xl md:text-5xl font-bold text-center mb-16">
         <span className="text-gray-800">Available</span>{" "}
-        <span className="bg-gradient-to-r from-yellow-400 to-yellow-300 bg-clip-text text-transparent">
+        <span className=" text-yellow-600">
           Services
         </span>
       </h1>
