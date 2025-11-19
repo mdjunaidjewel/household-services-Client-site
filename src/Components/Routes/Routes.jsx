@@ -64,12 +64,17 @@ export const router = createBrowserRouter([
       },
       {
         path: "service-details/:id",
-        loader: ({ params }) => fetch(`http://localhost:3000/services/${params.id}`),
-        element:<ServiceDetails></ServiceDetails>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/services/${params.id}`),
+        element: (
+          <PrivateRoute>
+            <ServiceDetails></ServiceDetails>,
+          </PrivateRoute>
+        ),
       },
       {
         path: "my-bookings",
-        element:<MyBookings></MyBookings>
+        element: <MyBookings></MyBookings>,
       },
     ],
   },

@@ -11,39 +11,36 @@ const ServiceDetails = () => {
   const {
     _id,
     service_name,
-    image,
     description,
-    price_range,
+    price,
     duration,
     rating,
+    provider_name,
+    provider_email,
   } = service;
 
   const [open, setOpen] = useState(false);
 
-  // Handle Book Now click
   const handleBookNowClick = () => {
-    if (user && user.email) {
+    if (user?.email) {
       setOpen(true);
     } else {
       Swal.fire({
         icon: "warning",
         title: "Login Required",
         text: "You must be logged in to book a service.",
-        confirmButtonText: "Login / Register",
       });
     }
   };
 
-  // Handle booking form submit
   const handleBooking = async (e) => {
     e.preventDefault();
-
     const booking = {
       userEmail: user?.email,
       serviceId: _id,
-      serviceName: service_name, // store service name
+      serviceName: service_name,
       bookingDate: e.target.date.value,
-      price: price_range,
+      price: price,
     };
 
     try {
@@ -52,7 +49,6 @@ const ServiceDetails = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(booking),
       });
-
       const data = await res.json();
 
       if (data.insertedId || data.success) {
@@ -73,129 +69,120 @@ const ServiceDetails = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-5 md:p-10">
-      <div className="max-w-5xl mx-auto">
-        {/* Wrapper Card */}
-        <div className="bg-white/60 backdrop-blur-xl shadow-xl rounded-3xl overflow-hidden border border-white/40">
-          {/* Top Image */}
-          <div className="w-full h-60 md:h-96 overflow-hidden">
-            <img
-              src={image}
-              alt={service_name}
-              className="w-full h-full object-cover"
-            />
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-3 md:p-6">
+      <div className="max-w-3xl mx-auto">
+        <div className="bg-white/70 backdrop-blur-sm shadow-md rounded-xl overflow-hidden border border-white/30 p-4 md:p-5">
+          <h1 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">
+            {service_name}
+          </h1>
+
+          {/* Rating */}
+          <div className="flex items-center gap-1 mb-3">
+            {[...Array(5)].map((_, i) => (
+              <FaStar
+                key={i}
+                className={`text-sm md:text-base ${
+                  i < rating ? "text-yellow-400" : "text-gray-300"
+                }`}
+              />
+            ))}
+            <span className="text-gray-700 text-sm md:text-base font-medium">
+              {rating}/5
+            </span>
           </div>
 
-          {/* Content */}
-          <div className="p-6 md:p-10">
-            {/* Title */}
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-              <h1 className="text-3xl md:text-4xl font-extrabold text-gray-800">
-                {service_name}
-              </h1>
-            </div>
+          {/* Description */}
+          <p className="text-gray-700 leading-5 mb-3 text-sm md:text-base">
+            {description}
+          </p>
 
-            {/* Rating */}
-            <div className="flex items-center gap-2 mt-4 mb-6">
-              {[...Array(5)].map((_, i) => (
-                <FaStar
-                  key={i}
-                  className={`text-xl ${
-                    i < rating ? "text-yellow-400" : "text-gray-300"
-                  }`}
-                />
-              ))}
-              <span className="text-gray-700 font-semibold">{rating}/5</span>
-            </div>
-
-            {/* Description */}
-            <p className="text-gray-700 leading-7 mb-8 text-lg">
-              {description}
+          {/* Provider Info */}
+          <div className="mb-3 p-3 bg-gray-100 rounded-lg border text-sm md:text-base">
+            <h3 className="font-semibold text-gray-800 mb-1">Provider Info</h3>
+            <p>
+              <strong>Name:</strong> {provider_name}
             </p>
+            <p>
+              <strong>Email:</strong> {provider_email}
+            </p>
+          </div>
 
-            {/* Info Section */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {/* Price */}
-              <div className="p-6 bg-white shadow-lg rounded-2xl border">
-                <h3 className="text-xl font-semibold text-gray-800 mb-1">
-                  Price Range
-                </h3>
-                <p className="text-2xl font-bold text-indigo-600">
-                  {price_range}
-                </p>
-              </div>
-
-              {/* Duration */}
-              <div className="p-6 bg-white shadow-lg rounded-2xl border">
-                <h3 className="text-xl font-semibold text-gray-800 mb-1">
-                  Duration
-                </h3>
-                <p className="text-2xl font-bold text-indigo-600">{duration}</p>
-              </div>
+          {/* Info Section */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+            <div className="p-3 bg-white shadow rounded-lg border text-sm md:text-base">
+              <h3 className="font-semibold mb-1">Price</h3>
+              <p className="text-indigo-600 font-bold">{price}</p>
             </div>
-
-            {/* Book Button */}
-            <div className="mt-10">
-              <button
-                onClick={handleBookNowClick}
-                className="cursor-pointer w-full md:w-auto px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-lg font-semibold rounded-xl shadow-lg transition-all"
-              >
-                Book Now
-              </button>
+            <div className="p-3 bg-white shadow rounded-lg border text-sm md:text-base">
+              <h3 className="font-semibold mb-1">Duration</h3>
+              <p className="text-indigo-600 font-bold">{duration}</p>
             </div>
+          </div>
+
+          {/* Book Button */}
+          <div className="mt-4">
+            <button
+              onClick={handleBookNowClick}
+              className="w-full md:w-auto px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm md:text-base font-semibold rounded-lg shadow transition-all cursor-pointer"
+            >
+              Book Now
+            </button>
           </div>
         </div>
       </div>
 
-      {/* DaisyUI Modal */}
+      {/* Booking Modal */}
       {open && (
         <dialog open className="modal">
-          <div className="modal-box max-w-lg">
-            <h3 className="font-bold text-2xl mb-3">Book This Service</h3>
+          <div className="modal-box max-w-sm">
+            <h3 className="font-bold text-lg md:text-xl mb-2">
+              Book This Service
+            </h3>
 
-            {/* Service Info */}
-            <div className="p-4 bg-gray-100 rounded-xl mb-4">
+            <div className="p-2 bg-gray-100 rounded-lg mb-2 text-sm md:text-base">
               <p className="font-semibold">{service_name}</p>
-              <p className="text-sm text-gray-600">
-                {description.slice(0, 80)}...
-              </p>
-              <div className="flex gap-4 mt-2 text-sm">
-                <p>💲 Price: {price_range}</p>
+              <p className="text-gray-600">{description}</p>
+              <div className="flex gap-2 mt-1 text-sm">
+                <p>💲 Price: {price}</p>
                 <p>⏱ Duration: {duration}</p>
+              </div>
+              <div className="mt-1 text-sm">
+                <p>👤 Provider: {provider_name}</p>
+                <p>📧 Email: {provider_email}</p>
               </div>
             </div>
 
-            {/* Booking Form */}
             <form onSubmit={handleBooking}>
-              {/* Email */}
-              <label className="font-medium">Your Email</label>
+              <label className="font-medium text-sm md:text-base">
+                Your Email
+              </label>
               <input
                 type="email"
                 value={user?.email || ""}
                 readOnly
-                className="input input-bordered w-full bg-gray-200 mb-4"
+                className="input input-bordered w-full bg-gray-200 mb-2 text-sm"
               />
 
-              {/* Booking Date */}
-              <label className="font-medium">Booking Date</label>
+              <label className="font-medium text-sm md:text-base">
+                Booking Date
+              </label>
               <input
                 type="date"
                 name="date"
                 required
                 defaultValue={new Date().toISOString().split("T")[0]}
-                className="input input-bordered w-full mb-4"
+                className="input input-bordered w-full mb-2 text-sm"
               />
 
-              {/* Buttons */}
-              <div className="modal-action">
+              <div className="modal-action flex justify-end gap-2">
                 <button
                   type="button"
-                  className="btn"
+                  className="btn btn-sm"
                   onClick={() => setOpen(false)}
                 >
                   Close
                 </button>
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-primary btn-sm">
                   Confirm Booking
                 </button>
               </div>

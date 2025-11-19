@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { AuthContext } from "../../Components/AuthContext/AuthProvider";
+import { useNavigate } from "react-router"; // ✅ React Router useNavigate
+import Swal from "sweetalert2";
 
 const AddService = () => {
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate(); // ✅ navigate hook
+
   const [formData, setFormData] = useState({
     service_name: "",
     category: "",
@@ -10,6 +16,12 @@ const AddService = () => {
     provider_name: "",
     email: "",
   });
+
+  useEffect(() => {
+    if (user?.email) {
+      setFormData((prev) => ({ ...prev, email: user.email }));
+    }
+  }, [user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,7 +40,18 @@ const AddService = () => {
       });
 
       if (response.ok) {
-        alert("Service added successfully!");
+        // ✅ SweetAlert success
+        Swal.fire({
+          title: "Service Added!",
+          text: "Your service has been added successfully.",
+          icon: "success",
+          confirmButtonText: "Go to My Services",
+        }).then(() => {
+          // ✅ Redirect to My Services page
+          navigate("/my-services");
+        });
+
+        // Reset form
         setFormData({
           service_name: "",
           category: "",
@@ -36,14 +59,22 @@ const AddService = () => {
           description: "",
           image: "",
           provider_name: "",
-          email: "",
+          email: user?.email || "",
         });
       } else {
-        alert("Failed to add service");
+        Swal.fire({
+          title: "Failed",
+          text: "Failed to add service.",
+          icon: "error",
+        });
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("Error adding service");
+      Swal.fire({
+        title: "Error",
+        text: "Error adding service.",
+        icon: "error",
+      });
     }
   };
 
@@ -132,16 +163,15 @@ const AddService = () => {
           />
         </div>
 
-        {/* Email */}
+        {/* Email (read-only) */}
         <div>
           <label className="block mb-2 font-semibold">Email</label>
           <input
             type="email"
             name="email"
             value={formData.email}
-            onChange={handleChange}
-            required
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            readOnly
+            className="w-full p-3 border border-gray-300 rounded-lg bg-gray-200 cursor-not-allowed"
           />
         </div>
 
