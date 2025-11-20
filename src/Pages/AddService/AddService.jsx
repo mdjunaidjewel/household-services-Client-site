@@ -1,16 +1,17 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../../Components/AuthContext/AuthProvider";
-import { useNavigate } from "react-router"; // ✅ React Router useNavigate
+import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 
 const AddService = () => {
   const { user } = useContext(AuthContext);
-  const navigate = useNavigate(); // ✅ navigate hook
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     service_name: "",
-    category: "",
     price: "",
+    duration: "",
+    provider_contact: "",
     description: "",
     image: "",
     provider_name: "",
@@ -33,29 +34,25 @@ const AddService = () => {
     try {
       const response = await fetch("http://localhost:3000/services", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
       if (response.ok) {
-        // ✅ SweetAlert success
         Swal.fire({
           title: "Service Added!",
           text: "Your service has been added successfully.",
           icon: "success",
           confirmButtonText: "Go to My Services",
         }).then(() => {
-          // ✅ Redirect to My Services page
           navigate("/my-services");
         });
 
-        // Reset form
         setFormData({
           service_name: "",
-          category: "",
           price: "",
+          duration: "",
+          provider_contact: "",
           description: "",
           image: "",
           provider_name: "",
@@ -94,33 +91,48 @@ const AddService = () => {
             value={formData.service_name}
             onChange={handleChange}
             required
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
-          />
-        </div>
-
-        {/* Category */}
-        <div>
-          <label className="block mb-2 font-semibold">Category</label>
-          <input
-            type="text"
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-            required
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400"
           />
         </div>
 
         {/* Price */}
         <div>
-          <label className="block mb-2 font-semibold">Price</label>
+          <label className="block mb-2 font-semibold">Price ($)</label>
           <input
-            type="text"
+            type="number"
             name="price"
             value={formData.price}
             onChange={handleChange}
             required
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            min="1"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400"
+          />
+        </div>
+
+        {/* Duration */}
+        <div>
+          <label className="block mb-2 font-semibold">Duration (Hours)</label>
+          <input
+            type="number"
+            name="duration"
+            value={formData.duration}
+            onChange={handleChange}
+            min="1"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400"
+          />
+        </div>
+
+        {/* Contact */}
+        <div>
+          <label className="block mb-2 font-semibold">Contact Number</label>
+          <input
+            type="text"
+            name="provider_contact"
+            value={formData.provider_contact}
+            onChange={handleChange}
+            required
+            placeholder="017XXXXXXXX"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400"
           />
         </div>
 
@@ -133,11 +145,11 @@ const AddService = () => {
             onChange={handleChange}
             required
             rows="4"
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400"
           ></textarea>
         </div>
 
-        {/* Image URL */}
+        {/* Image */}
         <div>
           <label className="block mb-2 font-semibold">Image URL</label>
           <input
@@ -146,7 +158,7 @@ const AddService = () => {
             value={formData.image}
             onChange={handleChange}
             required
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400"
           />
         </div>
 
@@ -159,11 +171,11 @@ const AddService = () => {
             value={formData.provider_name}
             onChange={handleChange}
             required
-            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400"
           />
         </div>
 
-        {/* Email (read-only) */}
+        {/* Email */}
         <div>
           <label className="block mb-2 font-semibold">Email</label>
           <input
@@ -175,10 +187,10 @@ const AddService = () => {
           />
         </div>
 
-        {/* Submit Button */}
+        {/* Submit */}
         <button
           type="submit"
-          className="w-full py-3 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-lg transition-colors duration-300 cursor-pointer"
+          className="w-full py-3 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-lg transition-colors"
         >
           Add Service
         </button>

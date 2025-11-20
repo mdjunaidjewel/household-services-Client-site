@@ -7,15 +7,26 @@ import { AuthContext } from "../../Components/AuthContext/AuthProvider";
 
 function Services() {
   const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // 🔥 Fetch top rated 6 services
+    // Fetch top rated 6 services
     fetch("http://localhost:3000/services/top")
       .then((res) => res.json())
-      .then((data) => setServices(data))
-      .catch((err) => console.error(err));
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setServices(data);
+        } else {
+          setServices([]);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        setServices([]);
+      })
+      .finally(() => setLoading(false));
 
     AOS.init({
       duration: 1000,
@@ -37,7 +48,6 @@ function Services() {
         icon: "warning",
         confirmButtonText: "OK",
       }).then(() => {
-        // Login page-এ navigate করবে
         navigate("/login");
       });
       return;
@@ -45,9 +55,17 @@ function Services() {
     navigate(`/service-details/${id}`);
   };
 
-  if (services.length === 0) {
+  if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center text-gray-700 text-xl">
+        Loading services...
+      </div>
+    );
+  }
+
+  if (!services || services.length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-gray-700 text-xl">
         No services found.
       </div>
     );
@@ -80,12 +98,21 @@ function Services() {
             />
             <div className="p-5 flex flex-col flex-1">
               <div className="mb-4">
-                <h2 className="text-xl md:text-2xl font-semibold mb-2 text-gray-600">
+                <h2 className="text-xl md:text-2xl font-semibold mb-1 text-gray-600">
                   {service.service_name}
                 </h2>
-                <p className="text-gray-500 text-sm md:text-base line-clamp-3">
+
+                {/* Provider Name */}
+                <p className="text-gray-500 text-md font-extrabold mb-2">
+                  Provider:{" "}
+                  <span className="font-medium">{service.provider_name}</span>
+                </p>
+
+                {/* Description with 2 lines max and ellipsis */}
+                <p className="text-gray-500 text-sm md:text-base mb-2 overflow-hidden text-ellipsis line-clamp-2">
                   {service.description}
                 </p>
+
                 <p className="mt-2 font-semibold text-yellow-700">
                   Rating: {service.rating || 0}/5
                 </p>

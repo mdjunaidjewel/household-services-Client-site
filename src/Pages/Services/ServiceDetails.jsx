@@ -17,11 +17,15 @@ const ServiceDetails = () => {
     rating,
     provider_name,
     provider_email,
+    provider_contact,
+    createdAt,
   } = service;
 
   const [open, setOpen] = useState(false);
   const [booked, setBooked] = useState(false);
   const [loadingBooked, setLoadingBooked] = useState(true);
+
+  const isProvider = user?.email === provider_email;
 
   // check if logged-in user already booked
   useEffect(() => {
@@ -41,8 +45,6 @@ const ServiceDetails = () => {
       setLoadingBooked(false);
     }
   }, [user, _id]);
-
-  const isProvider = user?.email === provider_email;
 
   const handleBookNowClick = () => {
     if (!user?.email) {
@@ -132,7 +134,7 @@ const ServiceDetails = () => {
           </div>
 
           {/* Description */}
-          <p className="text-gray-700 leading-5 mb-3 text-sm md:text-base">
+          <p className="text-gray-700 leading-5 mb-3 text-sm md:text-base line-clamp-3">
             {description}
           </p>
 
@@ -145,6 +147,13 @@ const ServiceDetails = () => {
             <p>
               <strong>Email:</strong> {provider_email}
             </p>
+            <p>
+              <strong>Contact:</strong> {provider_contact}
+            </p>
+            <p>
+              <strong>Added On:</strong>{" "}
+              {new Date(createdAt).toLocaleDateString()}
+            </p>
           </div>
 
           {/* Info Section */}
@@ -155,7 +164,9 @@ const ServiceDetails = () => {
             </div>
             <div className="p-3 bg-white shadow rounded-lg border text-sm md:text-base">
               <h3 className="font-semibold mb-1">Duration</h3>
-              <p className="text-indigo-600 font-bold">{duration}</p>
+              <p className="text-indigo-600 font-bold">
+                {duration} {duration ? "hours" : ""}
+              </p>
             </div>
           </div>
 
@@ -192,14 +203,15 @@ const ServiceDetails = () => {
 
             <div className="p-2 bg-gray-100 rounded-lg mb-2 text-sm md:text-base">
               <p className="font-semibold">{service_name}</p>
-              <p className="text-gray-600">{description}</p>
+              <p className="text-gray-600 line-clamp-3">{description}</p>
               <div className="flex gap-2 mt-1 text-sm">
                 <p>💲 Price: {price}</p>
-                <p>⏱ Duration: {duration}</p>
+                <p>⏱ Duration: {duration} hours</p>
               </div>
               <div className="mt-1 text-sm">
                 <p>👤 Provider: {provider_name}</p>
                 <p>📧 Email: {provider_email}</p>
+                <p>📞 Contact: {provider_contact}</p>
               </div>
             </div>
 
