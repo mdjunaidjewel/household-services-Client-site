@@ -48,10 +48,10 @@ const MyBookings = () => {
     });
   };
 
-  // 🔹 Handle Rating
+  // Handle Rating
   const handleRating = async (bookingId, ratingValue, serviceId) => {
     try {
-      // 1️⃣ Update bookings collection
+      // Update bookings collection
       const bookingRes = await fetch(
         `http://localhost:3000/bookings/${bookingId}/rate`,
         {
@@ -63,14 +63,14 @@ const MyBookings = () => {
       const bookingData = await bookingRes.json();
 
       if (bookingData.modifiedCount > 0) {
-        // 2️⃣ Update services collection rating
+        // Update services collection rating
         await fetch(`http://localhost:3000/services/${serviceId}/rating`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ rating: ratingValue }),
         });
 
-        // 3️⃣ UI update
+        // UI update
         setBookings((prev) =>
           prev.map((b) =>
             b._id === bookingId ? { ...b, rating: ratingValue } : b

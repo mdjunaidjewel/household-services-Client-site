@@ -7,7 +7,7 @@ const PrivateRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
 
   if (loading) {
-    // Optionally: Loading spinner দেখাও
+    // Optionally Loading spinner
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p className="text-lg font-semibold">Loading...</p>

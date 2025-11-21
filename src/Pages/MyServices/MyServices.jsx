@@ -112,9 +112,6 @@ if (loading) {
   );
 }
 
-
-
-
   if (services.length === 0)
     return (
       <p className="text-center mt-10">You have not added any services yet.</p>

@@ -18,7 +18,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  // ✅ যদি user আগে থেকেই লগইন করা থাকে → সরাসরি /profile এ পাঠাও
   useEffect(() => {
     if (user) {
       Swal.fire({
@@ -34,7 +33,7 @@ const Login = () => {
     }
   }, [user, navigate]);
 
-  // ✅ Email & Password Login
+  // Email & Password Login
   const handleEmailLogin = async (event) => {
     event.preventDefault();
 
@@ -52,7 +51,7 @@ const Login = () => {
         timer: 2000,
       });
 
-      // ✅ Navigate to Profile page
+      // Navigate to Profile page
       navigate("/", { replace: true });
     } catch (error) {
       switch (error.code) {
@@ -72,7 +71,7 @@ const Login = () => {
     }
   };
 
-  // ✅ Google Login
+  // Google Login
   const handleGoogleSign = async () => {
     const provider = new GoogleAuthProvider();
     try {
@@ -85,7 +84,7 @@ const Login = () => {
         timer: 2000,
       });
 
-      // ✅ Navigate to Profile page
+      // Navigate to Profile page
       navigate("/profile", { replace: true });
     } catch (error) {
       switch (error.code) {

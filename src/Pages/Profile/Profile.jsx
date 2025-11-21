@@ -70,7 +70,7 @@ const Profile = () => {
           My Profile
         </h2>
 
-        {/* User Avatar */}
+        {/* User Img Url */}
         <div className="flex flex-col items-center mb-6">
           {user?.photoURL ? (
             <img

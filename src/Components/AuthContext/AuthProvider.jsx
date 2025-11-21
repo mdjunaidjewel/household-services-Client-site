@@ -6,12 +6,12 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // ✅ Loading state
+  const [loading, setLoading] = useState(true); // Loading
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setLoading(false); // ✅ Auth state determined
+      setLoading(false); // Auth state determined
     });
 
     return () => unsubscribe();
@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       await signOut(auth);
-      setUser(null); // ✅ Clear user on logout
+      setUser(null); // Clear user on logout
     } catch (error) {
       console.error("Logout Error:", error);
       throw error;

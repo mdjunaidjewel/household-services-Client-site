@@ -55,17 +55,16 @@ function Services() {
     navigate(`/service-details/${id}`);
   };
 
-if (loading) {
-  return (
-    <div className="min-h-screen flex flex-col justify-center items-center">
-      <div className="radial-progress animate-spin border-yellow-400 border-4 w-8 h-8 mb-3"></div>
-      <p className="text-gray-700 text-base md:text-lg font-medium">
-        Loading services...
-      </p>
-    </div>
-  );
-}
-
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col justify-center items-center">
+        <div className="radial-progress animate-spin border-yellow-400 border-4 w-8 h-8 mb-3"></div>
+        <p className="text-gray-700 text-base md:text-lg font-medium">
+          Loading services...
+        </p>
+      </div>
+    );
+  }
 
   if (!services || services.length === 0) {
     return (
@@ -85,6 +84,7 @@ if (loading) {
         <span className="text-yellow-600">Services</span>
       </h1>
 
+      {/* Service Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
         {services.map((service, index) => (
           <div
@@ -106,13 +106,11 @@ if (loading) {
                   {service.service_name}
                 </h2>
 
-                {/* Provider Name */}
                 <p className="text-gray-500 text-md font-extrabold mb-2">
                   Provider:{" "}
                   <span className="font-medium">{service.provider_name}</span>
                 </p>
 
-                {/* Description with 2 lines max and ellipsis */}
                 <p className="text-gray-500 text-sm md:text-base mb-2 overflow-hidden text-ellipsis line-clamp-2">
                   {service.description}
                 </p>
@@ -131,6 +129,19 @@ if (loading) {
             </div>
           </div>
         ))}
+      </div>
+
+      {/*Show All Services Button */}
+      <div className="text-center sm:my-10 my-5">
+        <button
+          onClick={() => {
+            navigate("/services");
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+          className=" cursor-pointer px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-gray-900 transition"
+        >
+          Show All Services
+        </button>
       </div>
     </div>
   );

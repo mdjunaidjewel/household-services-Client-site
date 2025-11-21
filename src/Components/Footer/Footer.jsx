@@ -10,7 +10,7 @@ const Footer = () => {
       }}
     >
       <div className="w-full mx-auto px-4 md:px-10 grid grid-cols-1 md:grid-cols-4 gap-8">
-        {/* Logo & Description */}
+        {/* Logo , Description */}
         <div>
           <h1 className="text-2xl font-bold text-yellow-400 mb-3">HomePro</h1>
           <p className="text-gray-400">
@@ -113,7 +113,7 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Bottom Copyright */}
+      {/*Copyright */}
       <div className="border-t border-gray-800 mt-10 py-6 text-center text-gray-300">
         © {new Date().getFullYear()} HomePro. All rights reserved.
         <h1>Developed by Junaid Jewel.</h1>

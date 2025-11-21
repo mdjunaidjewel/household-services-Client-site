@@ -136,7 +136,7 @@ const Navbar = () => {
         </ul>
       </div>
 
-      {/* Desktop logout/login buttons */}
+      {/* Desktop logout/login btn */}
       <div className="navbar-end hidden lg:flex gap-2">
         {user ? (
           <button onClick={handleLogout} className="btn btn-error">

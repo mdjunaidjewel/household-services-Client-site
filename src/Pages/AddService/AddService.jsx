@@ -10,7 +10,7 @@ const AddService = () => {
   const [formData, setFormData] = useState({
     service_name: "",
     price: "",
-    category: "", // duration এর জায়গায় category
+    category: "",
     provider_contact: "",
     description: "",
     image: "",
@@ -163,7 +163,7 @@ const AddService = () => {
           />
         </div>
 
-        {/* Provider Name */}
+        {/* Provider Name flied */}
         <div>
           <label className="block mb-2 font-semibold">Provider Name</label>
           <input
@@ -176,7 +176,7 @@ const AddService = () => {
           />
         </div>
 
-        {/* Email */}
+        {/* Email field */}
         <div>
           <label className="block mb-2 font-semibold">Email</label>
           <input
@@ -188,7 +188,7 @@ const AddService = () => {
           />
         </div>
 
-        {/* Submit */}
+        {/* Submit btn */}
         <button
           type="submit"
           className="cursor-pointer w-full py-3 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-lg transition-colors"

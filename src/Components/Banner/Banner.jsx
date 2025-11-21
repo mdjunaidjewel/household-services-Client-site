@@ -41,7 +41,7 @@ const Banner = () => {
             className="w-full flex-shrink-0 relative"
             style={{ width: `${100 / slides.length}%` }}
           >
-            {/* Image */}
+            {/* Img */}
             <img
               src={slide.image}
               className="w-full h-[250px] md:h-[450px] object-cover"
@@ -60,12 +60,12 @@ const Banner = () => {
                 {slide.service_name}
               </h1>
 
-              {/* Description in gray */}
+              {/* Description*/}
               <p className="text-gray-200 text-sm md:text-lg mb-2 sm:mb-5 max-w-2xl">
                 {slide.description}
               </p>
 
-              {/* Explore Button in yellow */}
+              {/* Explore Button*/}
               <NavLink
                 to="services"
                 className="bg-yellow-400 text-black font-bold px-6 py-3 rounded hover:bg-yellow-500 cursor-pointer"

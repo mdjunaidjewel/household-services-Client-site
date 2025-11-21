@@ -26,7 +26,7 @@ const Signup = () => {
     return () => unsubscribe();
   }, []);
 
-  // ✅ Email/Password Sign Up
+  // Email/Password Sign Up
   const handleSignUp = async (event) => {
     event.preventDefault();
     const name = event.target.name.value.trim();
@@ -83,7 +83,7 @@ const Signup = () => {
     }
   };
 
-  // ✅ Google Sign-In Function
+  // Google Sign-In Function
   const handleGoogleSign = async () => {
     const provider = new GoogleAuthProvider();
     try {
@@ -126,7 +126,7 @@ const Signup = () => {
             Register
           </h1>
 
-          {/* ✅ Sign Up Form */}
+          {/* Sign Up Form */}
           <form onSubmit={handleSignUp} className="flex flex-col gap-4">
             <input
               name="name"
@@ -147,7 +147,7 @@ const Signup = () => {
               className="w-full px-4 py-2 text-black border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:outline-none transition"
             />
 
-            {/* ✅ Password with Toggle */}
+            {/* Password with Toggle */}
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
@@ -172,7 +172,7 @@ const Signup = () => {
             </button>
           </form>
 
-          {/* ✅ Google Sign In Btn */}
+          {/* Google Sign In Btn */}
           <button
             onClick={handleGoogleSign}
             className="w-full py-2 mt-4 border border-gray-300 rounded-lg flex items-center justify-center gap-2 text-black hover:bg-gray-100 transition cursor-pointer"
@@ -180,7 +180,7 @@ const Signup = () => {
             <FaGoogle /> Continue with Google
           </button>
 
-          {/* ✅ Login Link */}
+          {/* Login Link */}
           <div className="mt-4 text-sm text-center text-gray-700">
             Already have an account?{" "}
             <NavLink
