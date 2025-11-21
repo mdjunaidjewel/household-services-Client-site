@@ -24,7 +24,7 @@ const Login = () => {
       Swal.fire({
         icon: "info",
         title: "Already Logged In",
-        text: "Redirecting to your profile...",
+        text: "Redirecting to Home...",
         timer: 2000,
         showConfirmButton: false,
       });

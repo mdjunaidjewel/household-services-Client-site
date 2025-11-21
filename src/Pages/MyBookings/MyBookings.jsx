@@ -93,13 +93,17 @@ const MyBookings = () => {
     );
   }
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-gray-700">
-        Loading...
-      </div>
-    );
-  }
+if (loading) {
+  return (
+    <div className="min-h-screen flex flex-col justify-center items-center">
+      <div className="radial-progress animate-spin border-yellow-400 border-4 w-8 h-8 mb-3"></div>
+      <p className="text-gray-700 text-base md:text-lg font-medium">
+        Booking Loading...
+      </p>
+    </div>
+  );
+}
+
 
   return (
     <div className="min-h-screen p-5 md:p-10 bg-gradient-to-br from-blue-50 to-indigo-100">

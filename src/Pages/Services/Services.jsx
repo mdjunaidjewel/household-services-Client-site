@@ -55,13 +55,17 @@ function Services() {
     navigate(`/service-details/${id}`);
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-gray-700 text-xl">
+if (loading) {
+  return (
+    <div className="min-h-screen flex flex-col justify-center items-center">
+      <div className="radial-progress animate-spin border-yellow-400 border-4 w-8 h-8 mb-3"></div>
+      <p className="text-gray-700 text-base md:text-lg font-medium">
         Loading services...
-      </div>
-    );
-  }
+      </p>
+    </div>
+  );
+}
+
 
   if (!services || services.length === 0) {
     return (

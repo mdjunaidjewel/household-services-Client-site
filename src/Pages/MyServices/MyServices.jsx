@@ -45,7 +45,7 @@ const MyServices = () => {
     });
   };
 
-  // Update service (rating removed from modal)
+  // Update service
   const handleUpdate = (service) => {
     Swal.fire({
       title: "Update Service",
@@ -100,8 +100,21 @@ const MyServices = () => {
     return (
       <p className="text-center mt-10">Please login to see your services.</p>
     );
-  if (loading)
-    return <p className="text-center mt-10">Loading your services...</p>;
+
+if (loading) {
+  return (
+    <div className="min-h-screen flex flex-col justify-center items-center">
+      <div className="radial-progress animate-spin border-yellow-400 border-4 w-8 h-8 mb-3"></div>
+      <p className="text-gray-700 text-base md:text-lg font-medium">
+        Loading services...
+      </p>
+    </div>
+  );
+}
+
+
+
+
   if (services.length === 0)
     return (
       <p className="text-center mt-10">You have not added any services yet.</p>
@@ -154,7 +167,7 @@ const MyServices = () => {
                   {service.description}
                 </td>
                 <td className="px-4 py-3 text-yellow-700 font-bold max-w-[100px] truncate align-middle">
-                  ${service.price}
+                  {service.price}
                 </td>
                 <td className="px-4 py-3 text-yellow-600 font-semibold max-w-[80px] truncate align-middle">
                   {service.rating ? `${service.rating}/5` : "0/5"}

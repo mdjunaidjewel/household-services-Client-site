@@ -10,7 +10,7 @@ const AddService = () => {
   const [formData, setFormData] = useState({
     service_name: "",
     price: "",
-    duration: "",
+    category: "", // duration এর জায়গায় category
     provider_contact: "",
     description: "",
     image: "",
@@ -51,7 +51,7 @@ const AddService = () => {
         setFormData({
           service_name: "",
           price: "",
-          duration: "",
+          category: "",
           provider_contact: "",
           description: "",
           image: "",
@@ -109,15 +109,16 @@ const AddService = () => {
           />
         </div>
 
-        {/* Duration */}
+        {/* Category */}
         <div>
-          <label className="block mb-2 font-semibold">Duration (Hours)</label>
+          <label className="block mb-2 font-semibold">Category</label>
           <input
-            type="number"
-            name="duration"
-            value={formData.duration}
+            type="text"
+            name="category"
+            value={formData.category}
             onChange={handleChange}
-            min="1"
+            required
+            placeholder="e.g. Cleaning, Plumbing"
             className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400"
           />
         </div>

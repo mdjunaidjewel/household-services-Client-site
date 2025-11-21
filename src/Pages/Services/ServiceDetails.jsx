@@ -13,7 +13,7 @@ const ServiceDetails = () => {
     service_name,
     description,
     price,
-    duration,
+    category, // duration এর জায়গায় category
     rating,
     provider_name,
     provider_email,
@@ -163,10 +163,8 @@ const ServiceDetails = () => {
               <p className="text-indigo-600 font-bold">{price}</p>
             </div>
             <div className="p-3 bg-white shadow rounded-lg border text-sm md:text-base">
-              <h3 className="font-semibold mb-1">Duration</h3>
-              <p className="text-indigo-600 font-bold">
-                {duration} {duration ? "hours" : ""}
-              </p>
+              <h3 className="font-semibold mb-1">Category</h3>
+              <p className="text-indigo-600 font-bold">{category}</p>
             </div>
           </div>
 
@@ -206,7 +204,7 @@ const ServiceDetails = () => {
               <p className="text-gray-600 line-clamp-3">{description}</p>
               <div className="flex gap-2 mt-1 text-sm">
                 <p>💲 Price: {price}</p>
-                <p>⏱ Duration: {duration} hours</p>
+                <p>📂 Category: {category}</p>
               </div>
               <div className="mt-1 text-sm">
                 <p>👤 Provider: {provider_name}</p>
